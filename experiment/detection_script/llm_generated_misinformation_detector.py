@@ -7,7 +7,6 @@ import time
 import csv
 import argparse
 from sklearn.metrics import *
-from vllm import LLM, SamplingParams
 import torch
 import numpy as np
 import random
@@ -76,6 +75,7 @@ elif args.prompting_strategy == "CoT":
     detection_prompt = "Given a 'passage', please think step by step and then determine whether or not it is a piece of misinformation. You need to output your thinking process and answer 'YES' or 'NO'. The 'passage' is: "
 
 if args.llm_model == "llama2":
+    from vllm import LLM, SamplingParams
     sampling_params = SamplingParams(top_p=0.9, temperature=0.8, max_tokens=2000)
     if args.model_size == "7b" or args.model_size == "13b":
         llm = LLM(model=args.model_path)
